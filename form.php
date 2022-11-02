@@ -34,12 +34,12 @@
 
         /****** Si l'extension est autorisée *************/
         if ((!in_array($extension, $authorizedExtensions))) {
-            $errors[] = 'Veuillez sélectionner une image de type Jpg ou Jpeg ou Png !';
+            $errors[] = 'Veuillez sélectionner une image de type Jpg ou Jpeg ou Webpg ou Gif !';
         }
 
         /****** On vérifie si l'image existe et si le poids est autorisé en octets *************/
         if (file_exists($_FILES['avatar']['tmp_name']) && filesize($_FILES['avatar']['tmp_name']) > $maxFileSize) {
-            $errors[] = "Votre fichier doit faire moins de 2M !";
+            $errors[] = "Votre fichier doit faire moins de 1M !";
         }
     }
     ?>
@@ -49,7 +49,19 @@
         <button type="submit">Envoyer 🚀</button>
 
     </form>
+    <?php
+    if (!empty($errors)) {
+        echo '<div class="errors">';
+        echo  '<ul>';
+        foreach ($errors as $error) {
+            echo "<li>$error</li>";
+        }
+        echo '</ul>';
+        echo '</div>';
+    }
+    ?>
 
+    <img src="public/uploads/<?php echo $_FILES['avatar']['name'] ?>" alt="Photo de profil" width=75%>
 
 
 </body>
